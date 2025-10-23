@@ -1,4 +1,4 @@
-Shader "Unlit/04_Phong"
+Shader "Unlit/06_RimLight"
 {
 
     Properties
@@ -41,7 +41,7 @@ Shader "Unlit/04_Phong"
 
             fixed4 _Color;
 
-            fixed4 frag(v2f i) : SV_Target
+                        fixed4 frag(v2f i) : SV_Target
             {
                 // ambient
                 fixed4 ambient = _Color * 0.3 * _LightColor0;
@@ -58,10 +58,16 @@ Shader "Unlit/04_Phong"
                 i.normal = normalize(i.normal);
                 float3 reflectDir = -lightDir + 2 * i.normal * dot(i.normal, lightDir);
                 fixed4 specular = pow(saturate(dot(reflectDir, eyeDir)), 20) * _LightColor0;
-               
-                fixed4 phong = ambient + diffuse + specular;
+
+                // RimLight
+                fixed4 rimLight = 1 - pow(saturate(dot(i.normal, eyeDir)), 2) * _LightColor0;
+
+                fixed4 phong = ambient + diffuse + specular + rimLight;
                 return phong;
             }
+
+
+
             ENDCG
         }
     }

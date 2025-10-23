@@ -36,9 +36,12 @@ Shader "Unlit/05_Toon" {
                 float intensity = 
                     saturate(dot(normalize(i.normal), _WorldSpaceLightPos0));
                 intensity = step(0.5, intensity);
-                intensity += 0.1;
+                //intensity += 0.1;
+                fixed4 ambient = _Color * 0.3 * _LightColor0;
+
+
                 fixed4 color = _Color;
-                fixed4 diffuse = color * intensity * _LightColor0;
+                fixed4 diffuse = color * intensity * _LightColor0 + ambient;
                 return diffuse;
             }
             ENDCG
