@@ -1,5 +1,10 @@
 Shader "Unlit/05_Toon" {
 
+    Properties
+    {
+        _Color("Color", Color) = (1,0,0,1)    
+    }
+
     SubShader {
         Pass {
             CGPROGRAM
@@ -8,6 +13,7 @@ Shader "Unlit/05_Toon" {
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
 
+            fixed4 _Color;
 
             struct appdata {
                 float4 vertex : POSITION;
@@ -30,7 +36,8 @@ Shader "Unlit/05_Toon" {
                 float intensity = 
                     saturate(dot(normalize(i.normal), _WorldSpaceLightPos0));
                 intensity = step(0.5, intensity);
-                fixed4 color = fixed4(1,1,1,1);
+                intensity += 0.1;
+                fixed4 color = _Color;
                 fixed4 diffuse = color * intensity * _LightColor0;
                 return diffuse;
             }

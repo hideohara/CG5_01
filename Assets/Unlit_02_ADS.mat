@@ -22,5 +22,6 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats: []
-    m_Colors: []
+    m_Colors:
+    - _Color: {r: 0.06253698, g: 0.5079261, b: 0.6415094, a: 1}
   m_BuildTextureStacks: []
